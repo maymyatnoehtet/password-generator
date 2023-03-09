@@ -1,11 +1,13 @@
 // Assignment code here
 
-// validating the input and return the validated number
-function validate(input) {
+// validating the input and return the validated
+function validateLength(input) {
   var valid = false;
   while(!valid) {
-    if(!Number.isInteger(input) && input <= 0) {
-      input = prompt("Please enter the number greater than 0: ");
+    // the input needs to be an integer and between 8 - 128.
+    if(!Number.isInteger(input) && ((input < 8) || (input > 128))) {
+      console.log(input);
+      input = prompt("Please enter the integer between 8-128: ");
     }
     else {
       valid = true;
@@ -23,8 +25,8 @@ function generatePassword() {
     var length = prompt("How many characters would you like your password to contain?");
     console.log(length);
 
-    length = validate(length);
-    console.log("Validated length: " + validate(length));
+    length = validateLength(length);
+    console.log("Validated Length: " + length);
   
     // ask if the password need special characters
     var specialCharacter = confirm("Click OK to confirm including special characters.");
