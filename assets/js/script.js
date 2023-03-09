@@ -1,6 +1,7 @@
 // Assignment code here
 function generatePassword() {
 
+    var password = '';
     var required = [];
     // asking the length of the new password
     var length = prompt("How many characters would you like your password to contain?");
@@ -33,42 +34,78 @@ function generatePassword() {
     var requirements = required.filter(checkTrue).length;
     console.log(required.filter(checkTrue).length);
 
+    // check how many requirements are chosen
+    // Special characters, Numerical characters, lowercase, uppercase
     function checkTrue(require) {
       return require == true;
     }
 
+    // if only one of them were chosen True
     if (requirements == 1) {
-      generateOne(length);      
+      console.log("Going to generate password.")
+      password = generateOne(length, specialCharacter, numericalCharacter, lowercase, uppercase);      
     }
+    // if two of them were chosen True
     else if (requirements == 2) {
-      generateTwo(length);
+      password = generateTwo(length, specialCharacter, numericalCharacter, lowercase, uppercase);
     }
+    // if three of them were chose True
     else if (requirements == 3) {
-      generateThree(length);
+      password = generateThree(length, specialCharacter, numericalCharacter, lowercase, uppercase);
     }
+    // if all of them were chosen True
     else {
-      generateFour(length);
+      password = generateFour(length, specialCharacter, numericalCharacter, lowercase, uppercase);
     }
+}
+
+// generating random string
+function generateRandomString(length, characters) {
+   var charLength = characters.length;
+   var result = '';
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charLength));
+   }
+   return result;
 }
 
 // generate secure password with one requirement
-function generateOne(length) {
-  ...
+function generateOne(length, sc, nc, lc, uc) {
+
+  var randomString = '';
+  if(sc == true) {
+  }
+  else if(nc == true) {
+    var characters = '0123456789';
+    randomString = generateRandomString(length, characters);
+    console.log(randomString);
+  }
+  else if(lc == true) {
+    var characters = 'abcdefghijklmnopqrstuvwxyz';
+    randomString = generateRandomString(length, characters);
+    console.log(randomString);
+
+  }
+  else if(uc == true) {
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    randomString = generateRandomString(length, characters);
+    console.log(randomString);
+  } 
 }
 
 // generate secure password with two requirement
-function generateTwo(length) {
-  ...
+function generateTwo(length, sc, nc, lc, uc) {
+  
 }
 
 // generate secure password with three requirement
-function generateThree(length) {
-  ...
+function generateThree(length, sc, nc, lc, uc) {
+  
 }
 
 // generate secure password with four requirement
-function generateFour(length) {
-  ...
+function generateFour(length, sc, nc, lc, uc) {
+  
 }
 
 // Get references to the #generate element
