@@ -1,4 +1,20 @@
 // Assignment code here
+
+// validating the input and return the validated number
+function validate(input) {
+  var valid = false;
+  while(!valid) {
+    if(!Number.isInteger(input) && input <= 0) {
+      input = prompt("Please enter the number greater than 0: ");
+    }
+    else {
+      valid = true;
+    }
+    return input;
+  }
+}
+
+// generating secure password
 function generatePassword() {
 
     var password = '';
@@ -6,6 +22,9 @@ function generatePassword() {
     // asking the length of the new password
     var length = prompt("How many characters would you like your password to contain?");
     console.log(length);
+
+    length = validate(length);
+    console.log("Validated length: " + validate(length));
   
     // ask if the password need special characters
     var specialCharacter = confirm("Click OK to confirm including special characters.");
@@ -97,7 +116,26 @@ function generateOne(length, sc, nc, lc, uc) {
 // generate secure password with two requirements
 function generateTwo(length, sc, nc, lc, uc) {
   var randomString = '';
-  if ((nc == true) && (lc == true)) {
+
+  if ((sc == true) && (nc == true)) {
+    var characters = '!@#$%^&*()_+=<>?,./:;\'|{}[]1234567890';
+    randomString = generateRandomString(length, characters);
+    console.log(randomString);  
+  }
+
+  else if ((sc == true) && (lc == true)) {
+    var characters = '!@#$%^&*()_+=<>?,./:;\'|{}[]abcdefghijklmnopqrstuvwxyz';
+    randomString = generateRandomString(length, characters);
+    console.log(randomString);  
+  }
+
+  else if ((sc == true) && (uc == true)) {
+    var characters = '!@#$%^&*()_+=<>?,./:;\'|{}[]ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    randomString = generateRandomString(length, characters);
+    console.log(randomString);  
+  }
+
+  else if ((nc == true) && (lc == true)) {
     var characters = '1234567890abcdefghijklmnopqrstuvwxyz';
     randomString = generateRandomString(length, characters);
     console.log(randomString);  
@@ -114,6 +152,7 @@ function generateTwo(length, sc, nc, lc, uc) {
     randomString = generateRandomString(length, characters);
     console.log(randomString);  
   }
+
   return randomString;  
 }
 
