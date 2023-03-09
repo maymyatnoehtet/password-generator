@@ -1,4 +1,6 @@
 // Assignment code here
+// var passwordEl = document.querySelector('#password');
+
 function generatePassword() {
 
     var password = '';
@@ -27,10 +29,7 @@ function generatePassword() {
     console.log(uppercase);
     required.push(uppercase);
 
-    // for (let i = 0; i < required.length; i++) {
-    //   console.log(required[i]);      
-    // }
-
+    // number of "True" for password requirements
     var requirements = required.filter(checkTrue).length;
     console.log(required.filter(checkTrue).length);
 
@@ -43,7 +42,8 @@ function generatePassword() {
     // if only one of them were chosen True
     if (requirements == 1) {
       console.log("Going to generate password.")
-      password = generateOne(length, specialCharacter, numericalCharacter, lowercase, uppercase);      
+      password = generateOne(length, specialCharacter, numericalCharacter, lowercase, uppercase);
+      console.log(password);
     }
     // if two of them were chosen True
     else if (requirements == 2) {
@@ -57,6 +57,7 @@ function generatePassword() {
     else {
       password = generateFour(length, specialCharacter, numericalCharacter, lowercase, uppercase);
     }
+    return password;
 }
 
 // generating random string
@@ -90,7 +91,8 @@ function generateOne(length, sc, nc, lc, uc) {
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     randomString = generateRandomString(length, characters);
     console.log(randomString);
-  } 
+  }
+  return randomString; 
 }
 
 // generate secure password with two requirement
@@ -100,7 +102,11 @@ function generateTwo(length, sc, nc, lc, uc) {
 
 // generate secure password with three requirement
 function generateThree(length, sc, nc, lc, uc) {
-  
+  if ((nc == true) && (lc == true) && (uc == true)) {
+    var characters = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    randomString = generateRandomString(length, characters);
+    console.log(randomString);  
+  }
 }
 
 // generate secure password with four requirement
