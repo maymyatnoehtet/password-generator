@@ -20,41 +20,43 @@ function validateLength(input) {
 function generatePassword() {
 
     var password = '';
-    var required = [];
+    var length;
+    var specialCharacter;
+    var numericalCharacter;
+    var lowercase;
+    var uppercase;
+
     // asking the length of the new password
-    var length = prompt("How many characters would you like your password to contain?");
+    length = prompt("How many characters would you like your password to contain?");
     console.log(length);
 
     length = validateLength(length);
     console.log("Validated Length: " + length);
   
-    // ask if the password need special characters
-    var specialCharacter = confirm("Click OK to confirm including special characters.");
-    console.log(specialCharacter);
-    required.push(specialCharacter);
-
-    // ask if the password need numerical values
-    var numericalCharacter = confirm("Click OK to confirm including numerical characters.");
-    console.log(numericalCharacter);
-    required.push(numericalCharacter);
+    var required = [];
   
-    // ask if the password need lowercase characters
-    var lowercase = confirm("Click OK to confirm including lowercase characters.");
-    console.log(lowercase);
-    required.push(lowercase);
-  
-    // ask if the password need uppercase characters
-    var uppercase = confirm("Click OK to confirm including uppercase characters.");
-    console.log(uppercase);
-    required.push(uppercase);
+    required = selectPasswordCriterias();
 
     // number of "True" for password requirements
-    var requirements = required.filter(checkTrue).length;
-    console.log(required.filter(checkTrue).length);
+    var requirements = required.filter(checkTrues).length;
+    console.log(required.filter(checkTrues).length);
+
+    // when none of the criteria is selected
+    // ask the user to reselect the criterias 
+    while (requirements < 1) {
+      alert("At least one criteria needs to be true.");
+      required = selectPasswordCriterias();
+      requirements = required.filter(checkTrues).length;
+    }
+
+    specialCharacter = required[0];
+    numericalCharacter = required[1];
+    lowercase = required[2];
+    uppercase = required[3];
 
     // check how many requirements are chosen
     // Special characters, Numerical characters, lowercase, uppercase
-    function checkTrue(require) {
+    function checkTrues(require) {
       return require == true;
     }
 
@@ -75,6 +77,31 @@ function generatePassword() {
       password = generateFour(length, specialCharacter, numericalCharacter, lowercase, uppercase);
     }
     return password;
+}
+
+// ask user to select which characters to be included in the password
+function selectPasswordCriterias() {
+  var specialCharacter;
+  var numericalCharacter;
+  var lowercase;
+  var uppercase;
+  // ask if the password need special characters
+  specialCharacter = confirm("Click OK to confirm including special characters.");    
+  console.log(specialCharacter);
+
+  // ask if the password need numerical values
+  numericalCharacter = confirm("Click OK to confirm including numerical characters.");
+  console.log(numericalCharacter);
+
+  // ask if the password need lowercase characters
+  lowercase = confirm("Click OK to confirm including lowercase characters.");
+  console.log(lowercase);
+  
+  // ask if the password need uppercase characters
+  uppercase = confirm("Click OK to confirm including uppercase characters.");
+  console.log(uppercase);
+
+  return [specialCharacter, numericalCharacter, lowercase, uppercase];
 }
 
 // generating random string
