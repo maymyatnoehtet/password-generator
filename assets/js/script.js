@@ -1,19 +1,28 @@
 // Assignment code here
+var special = '!@#$%^&*()_+=<>?,./:;\'|{}[]';
+var numerical = '1234567890';
+var lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+var upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 // validating the input and return the validated
 function validateLength(input) {
+  var inputInt = parseInt(input);
   var valid = false;
   while(!valid) {
+
+    // for debugging
+    console.log(typeof(inputInt));
     // the input needs to be an integer and between 8 - 128.
-    if(!Number.isInteger(input) && ((input < 8) || (input > 128))) {
-      console.log(input);
+    if((inputInt != (/^[0-9.,]*$/) && ((input < 8) || (input > 128)))) {
+      console.log("Is input the number?: " + (inputInt != (/^[0-9.,]*$/)));
       input = prompt("Please enter the integer between 8-128: ");
+      console.log("Is it valid?: " + valid);
     }
     else {
       valid = true;
     }
-    return input;
   }
+  return input;
 }
 
 // generating secure password
@@ -74,7 +83,7 @@ function generatePassword() {
     }
     // if all of them were chosen True
     else {
-      password = generateFour(length, specialCharacter, numericalCharacter, lowercase, uppercase);
+      password = generateFour(length);
     }
     return password;
 }
@@ -119,23 +128,23 @@ function generateOne(length, sc, nc, lc, uc) {
 
   var randomString = '';
   if(sc == true) {
-    var characters = '!@#$%^&*()_+=<>?,./:;\'|{}[]';
+    var characters = special;
     randomString = generateRandomString(length, characters);
     console.log(randomString);
   }
   else if(nc == true) {
-    var characters = '0123456789';
+    var characters = numerical;
     randomString = generateRandomString(length, characters);
     console.log(randomString);
   }
   else if(lc == true) {
-    var characters = 'abcdefghijklmnopqrstuvwxyz';
+    var characters = lowerCase;
     randomString = generateRandomString(length, characters);
     console.log(randomString);
 
   }
   else if(uc == true) {
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var characters = upperCase;
     randomString = generateRandomString(length, characters);
     console.log(randomString);
   }
@@ -146,40 +155,50 @@ function generateOne(length, sc, nc, lc, uc) {
 function generateTwo(length, sc, nc, lc, uc) {
   var randomString = '';
 
+  // generate random string of special characters
+  // generate random string of numerical characters
+  // from the two same length of special and numerical characters strings 
+  // random generate another string with both characters
   if ((sc == true) && (nc == true)) {
-    var characters = '!@#$%^&*()_+=<>?,./:;\'|{}[]1234567890';
-    randomString = generateRandomString(length, characters);
+    randomString = generateRandomString(length, special);
+    randomString += generateRandomString(length, numerical);
+    randomString = generateRandomString(length, randomString);
     console.log(randomString);  
   }
 
   else if ((sc == true) && (lc == true)) {
-    var characters = '!@#$%^&*()_+=<>?,./:;\'|{}[]abcdefghijklmnopqrstuvwxyz';
-    randomString = generateRandomString(length, characters);
+    randomString = generateRandomString(length, special);
+    randomString += generateRandomString(length, lowerCase);
+    randomString = generateRandomString(length, randomString);
     console.log(randomString);  
   }
 
   else if ((sc == true) && (uc == true)) {
-    var characters = '!@#$%^&*()_+=<>?,./:;\'|{}[]ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    randomString = generateRandomString(length, characters);
+    randomString = generateRandomString(length, special);
+    randomString += generateRandomString(length, upperCase);
+    randomString = generateRandomString(length, randomString);
     console.log(randomString);  
   }
 
   else if ((nc == true) && (lc == true)) {
-    var characters = '1234567890abcdefghijklmnopqrstuvwxyz';
-    randomString = generateRandomString(length, characters);
+    randomString = generateRandomString(length, numerical);
+    randomString += generateRandomString(length, lowerCase);
+    randomString = generateRandomString(length, randomString);
     console.log(randomString);  
   }
 
   else if ((nc == true) && (uc == true)) {
-    var characters = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    randomString = generateRandomString(length, characters);
+    randomString = generateRandomString(length, numerical);
+    randomString += generateRandomString(length, upperCase);
+    randomString = generateRandomString(length, randomString);
     console.log(randomString);  
   }
 
   else if ((lc == true) && (uc == true)) {
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    randomString = generateRandomString(length, characters);
-    console.log(randomString);  
+    randomString = generateRandomString(length, lowerCase);
+    randomString += generateRandomString(length, upperCase);
+    randomString = generateRandomString(length, randomString);
+    console.log(randomString);    
   }
 
   return randomString;  
@@ -191,40 +210,51 @@ function generateThree(length, sc, nc, lc, uc) {
 
   /* Special characters, Numerical Numbers, Lowercase */
   if ((sc == true) && (nc == true) && (lc == true)) {
-    var characters = '!@#$%^&*()_+=<>?,./:;\'|{}[]1234567890abcdefghijklmnopqrstuvwxyz';
-    randomString = generateRandomString(length, characters);
+    randomString = generateRandomString(length/2, special);
+    randomString += generateRandomString(length/2, numerical);
+    randomString += generateRandomString(length/2, lowerCase);
+    randomString = generateRandomString(length, randomString);
     console.log(randomString);  
   }
 
   /* Special characters, Numerical Numbers, Uppercase */
   else if ((sc == true) && (nc == true) && (uc == true)) {
-    var characters = '!@#$%^&*()_+=<>?,./:;\'|{}[]1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    randomString = generateRandomString(length, characters);
+    randomString = generateRandomString(length/2, special);
+    randomString += generateRandomString(length/2, numerical);
+    randomString += generateRandomString(length/2, upperCase);
+    randomString = generateRandomString(length, randomString);
     console.log(randomString);  
   }
 
   /* Special characters, Lowercase, Uppercase */
   else if ((sc == true) && (lc == true) && (uc == true)) {
-    var characters = '!@#$%^&*()_+=<>?,./:;\'|{}[]ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    randomString = generateRandomString(length, characters);
+    randomString = generateRandomString(lengt/2, special);
+    randomString += generateRandomString(length/2, lowerCase);
+    randomString += generateRandomString(length/2, upperCase);
+    randomString = generateRandomString(length, randomString);
     console.log(randomString);  
   }
 
   /* Numerical Numbers, Lowercase, Uppercase */
   else if ((nc == true) && (lc == true) && (uc == true)) {
-    var characters = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    randomString = generateRandomString(length, characters);
-    console.log(randomString);  
+    randomString = generateRandomString(length/2, numerical);
+    randomString += generateRandomString(length/2, lowerCase);
+    randomString += generateRandomString(length/2, upperCase);
+    randomString = generateRandomString(length, randomString);
+    console.log(randomString);   
   }
   return randomString;
 }
 
 // generate secure password with four requirements
-function generateFour(length, sc, nc, lc, uc) {
+function generateFour(length) {
   var randomString = '';
-  var characters = '!@#$%^&*()_+=<>?,./:;\'|{}[]1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  randomString = generateRandomString(length, characters);
-  console.log(randomString);  
+  randomString = generateRandomString(length/2, special);
+  randomString += generateRandomString(length/2, numerical);
+  randomString += generateRandomString(length/2, lowerCase);
+  randomString += generateRandomString(length/2, upperCase);
+  randomString = generateRandomString(length, randomString);
+  console.log(randomString);    
   return randomString;
 }
 
